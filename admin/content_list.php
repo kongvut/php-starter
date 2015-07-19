@@ -31,7 +31,7 @@
 			<td><?php echo $dbarr['createtime'];?></td>
 			<td><?php echo $dbarr['total_read'];?></td>
 			<td>
-				<a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
+				<a href="?page=content_add&id=<?php echo $dbarr['id']; ?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
 				<a href="#" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
 			</td>
 		</tr>

@@ -28,7 +28,8 @@
 
 <body>
 
-    <?php include "menu.php"; ?>
+    <?php include_once "menu.php"; ?>
+    <?php include_once "db_connect.php"; ?>
 
     <!-- Page Content -->
     <div class="container">

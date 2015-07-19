@@ -5,9 +5,7 @@
 </div>
 <br>
 <hr>
-<?php
-include_once "db_connect.php";
-?>
+
 <table class="table table-hover table-bordered table-striped">
 	<thead>
 		<tr style="background-color : #c6c6c6;">

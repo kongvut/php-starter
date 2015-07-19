@@ -6,7 +6,7 @@
 <br>
 <hr>
 
-<form>
+<form action="?page=content_save" method="post">
   <div class="form-group">
     <label for="">หัวข้อบทความ</label>
     <input type="text" name="title" class="form-control" id="" placeholder="กรอกหัวข้อบทความ">

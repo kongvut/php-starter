@@ -40,14 +40,14 @@
                 <div class="panel panel-primary" style="width: 400px; margin: auto;">
                     <div class="panel-heading">เข้าสู่ระบบจัดการ</div>
                     <div class="panel-body">
-                        <form action="admin_panel.php" method="post">
+                        <form action="chk_login.php" method="post">
                             <div class="form-group">
-                              <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                              <label for="">Username</label>
+                              <input type="text" class="form-control" id="" name="user" placeholder="User">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputPassword1">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <label for="">Password</label>
+                              <input type="password" class="form-control" id="" name="pass" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-default">Login</button>
                           </form>

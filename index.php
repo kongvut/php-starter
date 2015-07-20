@@ -28,7 +28,8 @@
 
 <body>
 
-    <?php include "menu.php"; ?>
+    <?php include_once "menu.php"; ?>
+    <?php include_once "db_connect.php"; ?>
 
     <!-- Page Content -->
     <div class="container">
@@ -39,38 +40,30 @@
             <div class="col-md-8">
 
                 <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    บันทึกส่วนตัว
+                    <small>รายการทั้งหมด</small>
                 </h1>
 
+                <?php
+                $i=1;
+                $sql = "SELECT * FROM tbl_content ORDER BY id DESC";
+                $res = $mysqli->query($sql);
+                while($dbarr = $res->fetch_assoc()) {
+                ?>
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="view.php">Blog Post Title</a>
+                    <a href="view.php?id=<?php echo $dbarr['id']; ?>"><?php echo $dbarr['title']; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
+                    by <a href="#"><?php echo $dbarr['createby']; ?></a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span> เขียนไว้วันที่ August 28, 2013 at 10:00 PM</p>
+                <p><span class="glyphicon glyphicon-time"></span> เขียนไว้วันที่ <?php echo $dbarr['createtime']; ?></p>
                 <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <p><?php echo iconv_substr($dbarr['content'], 0, 250, "UTF-8")."..."; ?></p>
+                <a class="btn btn-primary" href="view.php?id=<?php echo $dbarr['id']; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>
-
-                <!-- Second Blog Post -->
-                <h2>
-                    <a href="view.php">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> เขียนไว้วันที่ August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-              
-                <hr>
+                <?php } ?>
 
                 <!-- Pager -->
                 <ul class="pager">
@@ -103,42 +96,26 @@
                             <div class="tab-content">
                               <div role="tabpanel" class="tab-pane active" id="listpost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY id DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?></a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                               <div role="tabpanel" class="tab-pane" id="toppost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY total_read DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?> (<?php echo $dbarr['total_read']; ?>)</a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                             </div>

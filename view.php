@@ -1,3 +1,24 @@
+<?php
+$id=$_GET['id'];
+
+//change action
+if($id){
+  include_once "db_connect.php";
+  //+ read
+  $sql ="UPDATE tbl_content SET total_read=total_read+1 WHERE id = '$id';";
+  $res = $mysqli->query($sql);
+
+  //ดึงข้อมูล
+  $sql ="SELECT * FROM tbl_content WHERE id = '$id';";
+  $res = $mysqli->query($sql);
+  $dbarr = $res->fetch_assoc();
+  if(!$res->num_rows){
+    echo 'ไม่พบข้อมูล';
+    exit;
+  }
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,32 +62,22 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1>Blog Post Title</h1>
+                <h1><?php echo $dbarr['title']; ?></h1>
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
+                    by <a href="#"><?php echo $dbarr['createby']; ?></a>
                 </p>
 
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> เขียนไว้วันที่ on August 24, 2013 at 9:00 PM</p>
-
-                <hr>
-
-                <!-- Preview Image -->
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                <p><span class="glyphicon glyphicon-time"></span> เขียนไว้วันที่ <?php echo $dbarr['createtime']; ?></p>
 
                 <hr>
 
                 <!-- Post Content -->
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
-
+                <p><?php echo $dbarr['content']; ?></p>
                 <hr>
 
                 <!-- Blog Comments -->
@@ -121,42 +132,26 @@
                             <div class="tab-content">
                               <div role="tabpanel" class="tab-pane active" id="listpost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY id DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?></a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                               <div role="tabpanel" class="tab-pane" id="toppost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY total_read DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?> (<?php echo $dbarr['total_read']; ?>)</a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                             </div>

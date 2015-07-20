@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(empty($_SESSION['user'])){
+    echo '<META HTTP-EQUIV="Refresh" CONTENT="1;URL=admin.php">';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +53,7 @@
                     
                     <a href="#" class="list-group-item active"><span class="glyphicon glyphicon-cog"></span> การตั้งค่า</a>
                     <a href="#" class="list-group-item"><span class="glyphicon glyphicon-lock"></span> เปลี่นรหัสผ่าน</a>
-                    <a href="#" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span> ออกจาระบบ</a>
+                    <a href="logout.php" onclick="return confirm('Are you sure?')" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span> ออกจากระบบ</a>
                 </div>
             </div>
             <!-- Blog Sidebar Widgets Column -->

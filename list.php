@@ -28,7 +28,8 @@
 
 <body>
 
-    <?php include "menu.php"; ?>
+    <?php include_once "menu.php"; ?>
+    <?php include_once "db_connect.php"; ?>
 
     <!-- Page Content -->
     <div class="container">
@@ -103,42 +104,26 @@
                             <div class="tab-content">
                               <div role="tabpanel" class="tab-pane active" id="listpost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY id DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?></a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                               <div role="tabpanel" class="tab-pane" id="toppost">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">1. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">2. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">3. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">4. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">5. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">6. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">7. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
-                                    <li><a href="#">8. Lorem ipsum dolor sit amet, consectetur adipisicing...</a>
-                                    </li>
+                                    <?php
+                                    $i=1;
+                                    $sql = "SELECT * FROM tbl_content ORDER BY total_read DESC LIMIT 0,10;";
+                                    $res = $mysqli->query($sql);
+                                    while($dbarr = $res->fetch_assoc()) {
+                                    ?>
+                                    <li><a href="#"><?php echo $i.'. '.$dbarr['title']; $i++; ?> (<?php echo $dbarr['total_read']; ?>)</a></li>
+                                    <?php } ?>
                                 </ul>
                               </div>
                             </div>
